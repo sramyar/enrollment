@@ -1,0 +1,17 @@
+ac CS101 4			// adds a new course CS101 with capacity 10
+ac CS160 2			// adds a new course CS160 with capacity 5
+en 12345 CS101 student_1	// enrolls student_1 into CS101
+ac EE123 3			// adds a new course EE123 with capacity 5
+en 23456 CS101 student_2	// enrolls student_2 into CS101
+en 23456 EE123 student_2	// enrolls student_2 into EE123
+en 23456 CS160 student_2	// enrolls student_2 into CS160, should produce error message
+pc				// prints course capacities and enrollment
+en 12345 CS160 student_1	// enrolls student_1 into CS160
+en 34567 CS160 student_3	// enrolls student_3 into CS160
+en 45678 CS160 student_4	// enrolls student_4 into CS160, should produce error message
+dc EE123			// deletes EE123
+dr 34567 CS160			// drops 34567 from CS160
+en 34567 EE123 student_3	// enrolls student_3 into EE123, should produce error message
+pc				// prints course capacities and enrollment
+ps				// prints students enrolled in classes
+ex				// exit
