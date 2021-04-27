@@ -15,7 +15,7 @@ typedef struct node {
 //
 // -----------------------------
 
-node_t	*findList ( node_t *head, char *key );
-void	insertList( node_t *head, node_t *new );
-void	deleteList( node_t *head, node_t *del );
-void	printList ( node_t *head );
+node_t	*findList ( node_t  *head, char *key );
+void	insertList( node_t **head, node_t *new );
+void	deleteList( node_t **head, node_t *del );
+void	printList ( node_t  *head );

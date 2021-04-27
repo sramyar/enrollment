@@ -58,12 +58,21 @@ enroll( char *s_key, char *c_key )
 	node_t		*student_node;
 
 	// check if course already exists in dictionary
+	//course_info = (course_value*)find( CourseDict, c_key );
 	course_info = find( CourseDict, c_key );		// get pointer to course_value field
+	student_info = find( StudentDict, s_key );
 	if (course_info == NULL)				// course does not exist
 	    {
 		printf( "Course does not exist.\n" );
 		return;
 	    }
+	if (student_info == NULL)
+		{
+			// create new student => student_element
+			student_info = student_element.value
+		student_info = // create new student
+						// add new student into the StudentDict
+		}
 	student_node = findList( course_info->list, s_key );
 	if (student_node != NULL)				// student is already enrolled
 	    {
@@ -148,8 +157,8 @@ main()
 	char	*student_key;
 
 	// initialize dictionaries
-	create( CourseDict, 20 );
-	create( StudentDict, 20 );
+	create( &CourseDict, 20 );
+	create( &StudentDict, 20 );
 
 	// process input
 	while( ! done )

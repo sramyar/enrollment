@@ -26,29 +26,31 @@ typedef struct {
 // -------------------------------
 // create( D, n ) -- creates a dictionary with n slots
 // -------------------------------
-void create( dictionary D, int n );
+void create( dictionary* D, int n );
 
 
 // -------------------------------
 // insert( D, *e ) -- inserts element (*e).key:(*e)->value into the dictionary.
 // -------------------------------
-int insert( dictionary D, element *e );
+int insert( dictionary* D, element *e );
 
 
 // -------------------------------
 // delete( D, *e ) -- deletes (*e)->value from the dictionary.
 // -------------------------------
-int delete( dictionary D, element *e );
+int delete( dictionary* D, element *e );
 
 
 // -------------------------------
 // find( D, k ) -- returns pointer to the value of the element whose key is k from dictionary D.
 // -------------------------------
-void *find( dictionary D, char *k );
+//void *find( dictionary* D, char *k );
+
+node_t *find( dictionary* D, char *k );
 
 
 // -------------------------------
 // print( dictionary D ) -- prints the dictionary.
 // -------------------------------
-void print( dictionary D );
+void print( dictionary* D );
 

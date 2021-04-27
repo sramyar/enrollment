@@ -9,25 +9,22 @@
 // -------------------------------
 int convert( char key[5] )
 {
-
-
-
-
-
-
-
-
+    int ascii_val = 0;
+    for (int i = 0; i < 5; i++)
+    {
+        ascii_val+=(int)key[i];
+    }
+    
+    return ascii_val;
 }
 
 // -------------------------------
 // Hash function that returns an index into the hash table given a key
 // use the module formula on page 263 of CLRS.
+// we're using '5381' as the divisor
 // -------------------------------
-int hash( int key, int slots )
+int hash( char key[5], int slots )
 {
-
-
-
-
-
+    return convert(key)%slots;
 }
+
