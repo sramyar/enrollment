@@ -50,12 +50,12 @@ void delCourse( char *c_key );
 // -------------------------------------------
 // enrolls student into course. params are s_key and c_key
 // -------------------------------------------
-enroll( char *s_key, char *c_key );
+void enroll( char *s_key, char *c_key );
 
 // -------------------------------------------
 // drops student from course. params are s_key and c_key
 // -------------------------------------------
-drop( char *s_key, char *c_key );
+void drop( char *s_key, char *c_key );
 
 // -------------------------------------------
 // prints the StudentDict.  For each student,

@@ -10,17 +10,23 @@ dictionary	CourseDict;
 dictionary	StudentDict;
 
 // -------------------------------------------
-// TODO: implement addCourse
 // adds e to the CourseDict.
 // Checks if e already exists, if so print error message
 // and don't update the dictionary.  Else update dictionary.
 // -------------------------------------------
+void addCourse( course_element *e )
+{
+	// check if course already exists in dictionary
+	if (find( &CourseDict, e->key ) == NULL)
+	    insert( &CourseDict, (element *) e );		// add course to CourseDict
+	else printf( "Course already exists.\n" );
 
-
-
+	// alternative code:
+	// if (insert( CourseDict, (element *) e ) == -1)
+	// 	printf( "Course already exists.\n" );
+}
 
 // -------------------------------------------
-// TODO: implement delCourse
 // deletes course whose ID is c from the CourseDict.
 // This should check if the course to be deleted exists.
 // If not, just print an error message: "Course does not exist."
@@ -29,12 +35,13 @@ dictionary	StudentDict;
 // are currently enrolled // in the course i.e. StudentDict needs
 // to be updated.  CourseDict needs to be updated as well.
 // -------------------------------------------
+void delCourse( char *c_key )
+{
 
 
-
+}
 
 // -------------------------------------------
-// TODO: implement enroll
 // enrolls student into course. params are s_key and c_key
 // Need to check for: existence of course, and if student
 // is already enrolled in the course.  Also check if course
@@ -42,22 +49,138 @@ dictionary	StudentDict;
 // If there's any error, print a message and don't enroll
 // the student.  If there's no errors, update both dictionaries.
 // -------------------------------------------
+void enroll( char *s_key, char *c_key )
+{
+	/* older version
+	course_value	*course_info;
+	student_value	*student_info;
 
+	node_t		*course_node;
+	node_t		*student_node;
 
+	// check if course already exists in dictionary
+	//course_info = (course_value*)find( CourseDict, c_key );
 
+	
+	course_info = find( &CourseDict, c_key );		// get pointer to course_value field
+	student_info = find( &StudentDict, s_key );
+	
+	if (course_info == NULL)				// course does not exist
+	    {
+		printf( "Course does not exist.\n" );
+		return;
+	    }
+	if (student_info == NULL)
+		{
+			// create new student => student_element
+			student_info = student_element.value
+		student_info = // create new student
+						// add new student into the StudentDict
+		}
+	student_node = findList( course_info->list, s_key );
+	if (student_node != NULL)				// student is already enrolled
+	    {
+		printf( "Student is already enrolled in that class.\n" );
+		return;
+	    }
+	
+	
 
+	// add student to the course if there's space, update course_value field
+	if ((*course_info).capacity == (*course_info).num_students)	// check capacity
+	    {
+		printf( "Course is full.\n" );
+		return;
+	    }
+	else{
+		student_node = (node_t *) malloc ( sizeof( node_t ) );
+		memcpy( student_node->key, s_key, 5 );
+		insertList( course_info->list, student_node );
+		(*course_info).num_students++;
+	     }
+
+	// add course to the student if less than 2 enrolled, update student_value field
+	if ((*student_info).num_courses == 2)		// already have max courses
+	    {
+		printf( "Cannot enroll in more than 2 courses.\n" );
+		return;
+	    }
+	else{
+		course_node = (node_t *) malloc ( sizeof( node_t ) );
+		memcpy( course_node->key, c_key, 5 );
+		insertList( student_info->list, course_node );
+		(*student_info).num_courses++;
+	    }
+
+	*/
+	course_value* course_info; // value field of course_entry
+	student_value* student_info;// value field of student_entry
+	node_t* course_entry; //node corresp. course entry in course dict
+	node_t* student_entry;//node corresp. student entry in student dict
+	node_t* course_node; // node corr. to list of courses in student value
+	node_t* student_node; // node corr. to list of students in course value
+	course_entry = find( &CourseDict, c_key );
+	student_entry = find( &StudentDict, s_key );
+	course_info = course_entry->value;
+	student_info = student_entry->value;
+	if (course_entry == NULL)				// course does not exist
+	    {
+		printf( "Course does not exist.\n" );
+		return;
+	    }
+	if (student_entry == NULL)
+		{
+		// create new student => student_element
+		//student_info = student_element->value;
+		//student_info = // create new student
+						// add new student into the StudentDict
+		}
+	student_node = findList( course_info->list, s_key );
+	if (student_node != NULL)				// student is already enrolled
+	    {
+		printf( "Student is already enrolled in that class.\n" );
+		return;
+	    }
+
+	// add student to the course if there's space, update course_value field
+	if (course_info->capacity == course_info->num_students)	// check capacity
+	    {
+		printf( "Course is full.\n" );
+		return;
+	    }
+	else{
+		student_node = (node_t *) malloc ( sizeof( node_t ) );
+		memcpy( student_node->key, s_key, 5 );
+		insertList( &(course_info->list), student_node );
+		course_info->num_students++;
+	     }
+
+	// add course to the student if less than 2 enrolled, update student_value field
+	if (student_info->num_courses == 2)		// already have max courses
+	    {
+		printf( "Cannot enroll in more than 2 courses.\n" );
+		return;
+	    }
+	else{
+		course_node = (node_t *) malloc ( sizeof( node_t ) );
+		memcpy( course_node->key, c_key, 5 );
+		insertList( &(student_info->list), course_node );
+		student_info->num_courses++;
+	    }
+}
 
 // -------------------------------------------
-// TODO: implement drop. 
 // drops a student from course. params are s_key and c_key
 // Need to check for: existence of course, and if student
 // is enrolled in the course.  If any error is encountered,
 // print an error message.  Do not update either dictionaries.
 // If there are no errors, update both dictionaries.
 // -------------------------------------------
+void drop( char *s_key, char *c_key )
+{
 
 
-
+}
 
 // -------------------------------------------
 // prints the StudentDict.  For each student,
@@ -66,7 +189,7 @@ dictionary	StudentDict;
 void printStudents()
 {
 	printf("Students:\n");
-	print( StudentDict );
+	//print( StudentDict );
 }
 
 // -------------------------------------------
@@ -76,14 +199,14 @@ void printStudents()
 void printCourses()
 {
 	printf("Courses:\n");
-	print( CourseDict );
+	//print( CourseDict );
 }
 
 // -------------------------------------------
 // Don't edit the code below.  This is the driver code to test
 // your implementation.
 // -------------------------------------------
-main()
+int main()
 {
 	char	line[100];
 	char 	*command;
@@ -96,8 +219,8 @@ main()
 	char	*student_key;
 
 	// initialize dictionaries
-	create( CourseDict, 20 );
-	create( StudentDict, 20 );
+	create( &CourseDict, 20 );
+	create( &StudentDict, 20 );
 
 	// process input
 	while( ! done )
@@ -154,4 +277,6 @@ main()
 		else printf("Unrecognized command: %2s\n", command);
 
 	}
+
+	return 0;
 }
