@@ -37,8 +37,44 @@ void addCourse( course_element *e )
 // -------------------------------------------
 void delCourse( char *c_key )
 {
-
-
+	node_t* course = find(&CourseDict, c_key);
+	if (strncmp(course->key, c_key, 5) != 0){
+		printf("\nCourse does not exist\n");
+		return;
+	}
+	course_value* course_info = course->value;
+	node_t* student;
+	char* s_key;
+	while (1){
+		if(course_info->list == NULL) break;
+		else{
+			student = course_info->list;
+			s_key = student->key;
+			drop(s_key, c_key);
+		}
+	}
+	delete(&CourseDict, c_key);
+	/*
+	node_t* cue = &((&CourseDict)->hash_table[hash(c_key,(&CourseDict)->slots)]);
+	node_t* x;
+	while(cue->next != NULL){
+		if(strncmp(cue->next->key, c_key, 5) == 0){
+			x = cue->next;
+			cue->next = x->next;
+			//printf("\n\tI'M HERE\n");
+			if(x->next != NULL) x->next->prev = cue;
+			//printf("\n\tI'M HERE\n");
+			free(x);
+			//printf("\n\tPTR TO NXT %s\n",cue->key);
+			//printf("\n\t___________PRINTING DICS\n");
+			//print(&CourseDict);
+			printf("\nCourse %s removed\n",c_key);
+			return;
+		}
+		else cue = cue->next;
+	}
+	*/
+	
 }
 
 // -------------------------------------------
@@ -122,10 +158,9 @@ void enroll( char *s_key, char *c_key )
 	
 	course_entry = find( &CourseDict, c_key );
 	student_entry = find( &StudentDict, s_key );
-	course_info = course_entry->value;
+	if(course_entry->key != NULL) course_info = course_entry->value;
 	if(student_entry->key != NULL) student_info = student_entry->value;
-	
-	if (course_entry->value == NULL)				// course does not exist
+	if (course_entry->key == NULL)				// course does not exist
 	    {
 		printf( "Course does not exist.\n" );
 		return;
@@ -238,6 +273,10 @@ void drop( char *s_key, char *c_key )
 	// delete student from course list
 	deleteList(&(course_info->list), student_enrolled);
 
+	// increment counter fields
+	course_info->num_students--;
+	student_info->num_courses--;
+
 }
 
 // -------------------------------------------
@@ -312,7 +351,9 @@ int main()
 			}
 		else if (strcmp(command, "dc")==0)		// delete a course
 			{
-				printf("dc\n");
+				course_key = strtok( NULL, " " );
+				delCourse(course_key);
+				printf("Delete Course Complete\n");
 			}
 		else if (strcmp(command, "en")==0)		// enroll a student
 			{

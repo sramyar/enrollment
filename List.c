@@ -1,4 +1,5 @@
 #include <string.h>
+#include<stdlib.h>
 #include<stdio.h>
 #include "List.h"
 
@@ -70,6 +71,7 @@ void deleteList( node_t **head, node_t *del )
 		if (del->next != NULL) del->next->prev = del->prev;
 	}
 
+	free(del);
 	//TODO: destruct node
 }
 

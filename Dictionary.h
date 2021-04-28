@@ -38,7 +38,8 @@ int insert( dictionary* D, element *e );
 // -------------------------------
 // delete( D, *e ) -- deletes (*e)->value from the dictionary.
 // -------------------------------
-int delete( dictionary* D, element *e );
+//int delete( dictionary* D, element *e );
+int delete( dictionary* D, char *key );
 
 
 // -------------------------------

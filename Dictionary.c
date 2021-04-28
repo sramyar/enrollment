@@ -91,8 +91,47 @@ int insert(dictionary* D, element* e)
 // This is basically CHAINED-HASH-DELETE on page 258 of CLRS.
 // -------------------------------
 
-int delete(dictionary* D, element* e)
+//int delete(dictionary* D, element* e)
+int delete(dictionary* D, char* key)
 {
+    node_t* node = find(D, key);
+    if(strncmp(node->key,key,5) != 0){
+        printf("\nNo element with key %s\n",key);
+        return -1;
+    }
+    node_t* cue = &(D->hash_table[hash(key,D->slots)]);
+	node_t* x;
+	while(cue->next != NULL){
+		if(strncmp(cue->next->key, key, 5) == 0){
+			x = cue->next;
+			cue->next = x->next;
+			//printf("\n\tI'M HERE\n");
+			if(x->next != NULL) x->next->prev = cue;
+			//printf("\n\tI'M HERE\n");
+			free(x);
+			//printf("\n\tPTR TO NXT %s\n",cue->key);
+			//printf("\n\t___________PRINTING DICS\n");
+			//print(&CourseDict);
+			printf("\nElement with key %s removed\n",key);
+			return 0;
+		}
+		else cue = cue->next;
+	}
+    return -1;
+    /*
+    node_t* x = find(D, e->key);
+    if(x == NULL){
+        printf("\nElement not in dictionary\n");
+        return -1;
+    }
+    else{
+        node_t* head = &(D->hash_table[hash(e->key, D->slots)]);
+        deleteList(&head, x);
+        D->size--;
+        return 0;
+    }
+    */
+    /*
     node_t* head = &(D->hash_table[hash(e->key,D->slots)]);
     if(head == NULL) return -1;
     else{
@@ -101,6 +140,7 @@ int delete(dictionary* D, element* e)
         D->size--;
         return 0;
     }
+    */
 }
 
 
