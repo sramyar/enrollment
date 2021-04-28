@@ -7,23 +7,28 @@
 // -----------------------------
 node_t *findList( node_t *head, char *key )
 {
-        node_t *ptr;
 
-        ptr = head;
-        while( ptr != NULL )
-        {
-			if (strcmp(ptr->key,key) == 0)
-				break;
-			else    ptr = ptr->next;
-        }
-        return( ptr );
+	node_t *ptr;
+	//printf("\n\tnow key is:%s\n",ptr->key);
+	ptr = head;
+	while( ptr != NULL )
+	{
+		//printf("\n\tWHILE now key is:%s\n",ptr->key);
+		if (strncmp(ptr->key,key,5) == 0){
+			return ptr;
+		}
+		else    ptr = ptr->next;
+	}
+	
+	return( NULL );
+	
 }
 
 // -----------------------------
 // Returns ptr to node with matching key, else returns NULL
 // -----------------------------
 void insertList( node_t **head, node_t *new )
-{
+{	
 	// insert new node as head of list
 	if (*head == NULL)
 	    {	*head = new;
@@ -35,6 +40,20 @@ void insertList( node_t **head, node_t *new )
 		new->prev  = NULL;
 		*head      = new;
 	    }
+	//printf("\n\thead now has key:%s\n",(*head)->key);
+	
+	/*
+	if(*head == NULL){
+		*head = new;
+		(*head)->next = NULL;
+		(*head)->prev = NULL;
+	}
+	else{
+		(*head)->next = new;
+		new->prev = *head;
+		new->next = NULL;
+	}
+	*/
 }
 
 // -----------------------------
@@ -59,13 +78,15 @@ void deleteList( node_t **head, node_t *del )
 // -----------------------------
 void printList( node_t *head )
 {
+	if(head == NULL) return;
 	node_t* cue = head;
+	printf("\n\t>>PRINTING LIST>>");
 	while (cue != NULL)
 	{
 		printf("%s\t",cue->key);
 		cue = cue->next;
 	}
-	printf("\nFinished printing queue\n");
+	printf("\n");
 
 }
 
